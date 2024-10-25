@@ -5,5 +5,17 @@ metadata:
 data:
   backup.sh: |
     #!/bin/sh
-    echo "Hello, World!"
-    sleep infinity
+
+    TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+
+    echo "Creating paperless-ngx backup"
+    kubectl exec {{ .Values.paperless.podname }} --container paperless-ngx -- \
+      document_exporter \
+      --no-progress-bar \
+      --split-manifest \
+      --use-folder-prefix \
+      --zip \
+      --zip-name "${TIMESTAMP}-plngx" \
+      ../export
+
+    # sleep infinity
