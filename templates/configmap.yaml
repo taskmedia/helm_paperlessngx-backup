@@ -29,6 +29,10 @@ data:
       ${PL_POD_NAME}:../export/${FILENAME_ZIP} \
       /backup-plngx/${FILENAME_ZIP}
 
+    echo "Remove backup from paperless-ngx pod"
+    kubectl exec ${PL_POD_NAME} --container ${PL_CONTAINER_NAME} -- \
+      rm ../export/${FILENAME_ZIP}
+
     {{- if .Values.encryption.enabled }}
     echo "Encrypting backup"
     gpg \
