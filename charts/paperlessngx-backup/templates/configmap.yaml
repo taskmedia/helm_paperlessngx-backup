@@ -67,6 +67,8 @@ data:
 
     rm /backup-plngx/${FILENAME_ZIP}
 
+    echo "finished paperless-ngx backup"
+
 {{- if .Values.encryption.enabled }}
   publickey.gpg: |
     {{- .Values.encryption.publickey | nindent 4 }}
