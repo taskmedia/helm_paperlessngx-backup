@@ -17,3 +17,5 @@ ftp:
   user: ""
   password: ""
   path: "."
+
+activeDeadlineSeconds: 60
