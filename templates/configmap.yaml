@@ -7,15 +7,26 @@ data:
     #!/bin/sh
 
     TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+    FILENAME="${TIMESTAMP}-plngx"
+    FILENAME_ZIP="${FILENAME}.zip"
+
+    PL_CONTAINER_NAME="paperless-ngx"
+    PL_POD_NAME="{{ .Values.paperless.podname }}"
 
     echo "Creating paperless-ngx backup"
-    kubectl exec {{ .Values.paperless.podname }} --container paperless-ngx -- \
+    kubectl exec ${PL_POD_NAME} --container ${PL_CONTAINER_NAME} -- \
       document_exporter \
       --no-progress-bar \
       --split-manifest \
       --use-folder-prefix \
       --zip \
-      --zip-name "${TIMESTAMP}-plngx" \
+      --zip-name ${FILENAME} \
       ../export
+
+    echo "Copying backup to backup pod"
+    kubectl cp \
+      --container="${PL_CONTAINER_NAME}" \
+      ${PL_POD_NAME}:../export/${FILENAME_ZIP} \
+      /backup-plngx/${FILENAME_ZIP}
 
     # sleep infinity

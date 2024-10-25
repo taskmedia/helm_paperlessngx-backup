@@ -22,11 +22,15 @@ spec:
           command: ["sh", "-c", "sleep infinity"]
           # command: ["sh", "-c", "/scripts/backup.sh"]
           volumeMounts:
+            - name: backup
+              mountPath: /backup-plngx
             - name: script-volume
               mountPath: /scripts/backup.sh
               subPath: backup.sh
       restartPolicy: Always # TODO: change
       volumes:
+        - name: backup
+          emptyDir: {}
         - name: script-volume
           configMap:
             name: {{ include "plngxbackup.fullname" . }}
