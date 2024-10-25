@@ -1,0 +1,21 @@
+apiVersion: v2
+name: paperless-ngx-backup
+description: Backup paperless-ngx via K8s cronjob to FTP
+home: https://helm.task.media/paperlessngx-backup
+keywords:
+- paperless-ngx
+- ftp
+- gpg
+- backup
+- document exporter
+maintainers:
+- name: fty4
+  url: https://github.com/fty4
+sources:
+- https://github.com/taskmedia/helm_paperlessngx-backup
+- https://github.com/taskmedia/helm
+icon: https://media.task.media/images/logo.png
+
+type: application
+
+version: 0.1.0
