@@ -1,2 +1,10 @@
 paperless:
   podname: paperless-ngx-0
+
+encryption:
+  enabled: false
+  publickey: |
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+    abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZab
+    -----END PGP PUBLIC KEY BLOCK-----

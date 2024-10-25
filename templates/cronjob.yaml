@@ -18,7 +18,7 @@ spec:
       serviceAccountName: {{ include "plngxbackup.fullname" . }}
       containers:
         - name: backup
-          image: bitnami/kubectl:latest
+          image: ghcr.io/taskmedia/kubectl-gpg-ftp:main
           command: ["sh", "-c", "sleep infinity"]
           # command: ["sh", "-c", "/scripts/backup.sh"]
           volumeMounts:
@@ -27,6 +27,11 @@ spec:
             - name: script-volume
               mountPath: /scripts/backup.sh
               subPath: backup.sh
+            {{- if .Values.encryption.enabled }}
+            - name: gpg-volume
+              mountPath: /scripts/publickey.gpg
+              subPath: publickey.gpg
+            {{- end }}
       restartPolicy: Always # TODO: change
       volumes:
         - name: backup
@@ -37,4 +42,13 @@ spec:
             items:
               - key: backup.sh
                 path: backup.sh
-            defaultMode: 0777
+            defaultMode: 0555 # read and execute
+        {{- if .Values.encryption.enabled }}
+        - name: gpg-volume
+          configMap:
+            name: {{ include "plngxbackup.fullname" . }}
+            items:
+              - key: publickey.gpg
+                path: publickey.gpg
+            defaultMode: 0444 # read only
+        {{- end }}

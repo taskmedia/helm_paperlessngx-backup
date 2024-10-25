@@ -29,4 +29,29 @@ data:
       ${PL_POD_NAME}:../export/${FILENAME_ZIP} \
       /backup-plngx/${FILENAME_ZIP}
 
+    {{- if .Values.encryption.enabled }}
+    echo "Encrypting backup"
+    gpg \
+      --batch \
+      --yes \
+      --output /backup-plngx/${FILENAME_ZIP}.gpg \
+      --encrypt \
+      --recipient-file /scripts/publickey.gpg \
+      --homedir /backup-plngx/.gnupg \
+      --encrypt /backup-plngx/${FILENAME_ZIP}
+    if ! [ $? -eq 0  ]; then
+      echo "error on encryption"
+      rm -rf /backup-plngx/${FILENAME_ZIP}
+      exit 1
+    fi
+    {{- end }}
+
+
+    # rm /backup-plngx/${FILENAME_ZIP}
+
     # sleep infinity
+
+{{- if .Values.encryption.enabled }}
+  publickey.gpg: |
+    {{- .Values.encryption.publickey | nindent 4 }}
+{{- end }}
