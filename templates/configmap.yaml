@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "plngxbackup.fullname" . }}"
+data:
+  backup.sh: |
+    #!/bin/sh
+    echo "Hello, World!"
+    sleep infinity

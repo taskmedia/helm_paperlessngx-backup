@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "plngxbackup.fullname" . }}"
+spec:
+  serviceAccountName: {{ include "plngxbackup.fullname" . }}
+  containers:
+    - name: backup
+      image: bitnami/kubectl:latest
+      # command: ["sh", "-c", "sleep infinity"]
+      command: ["sh", "-c", "/scripts/backup.sh"]
+      volumeMounts:
+        - name: script-volume
+          mountPath: /scripts/backup.sh
+          subPath: backup.sh
+  restartPolicy: Never
+  volumes:
+    - name: script-volume
+      configMap:
+        name: {{ include "plngxbackup.fullname" . }}
+        items:
+          - key: backup.sh
+            path: backup.sh
+        defaultMode: 0777
