@@ -1,24 +1,36 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: "{{ include "plngxbackup.fullname" . }}"
 spec:
-  serviceAccountName: {{ include "plngxbackup.fullname" . }}
-  containers:
-    - name: backup
-      image: bitnami/kubectl:latest
-      # command: ["sh", "-c", "sleep infinity"]
-      command: ["sh", "-c", "/scripts/backup.sh"]
-      volumeMounts:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ include "plngxbackup.fullname" . }}"
+  template:
+    metadata:
+      name: "{{ include "plngxbackup.fullname" . }}"
+      annotations:
+        configmap-hash: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app: "{{ include "plngxbackup.fullname" . }}"
+    spec:
+      serviceAccountName: {{ include "plngxbackup.fullname" . }}
+      containers:
+        - name: backup
+          image: bitnami/kubectl:latest
+          command: ["sh", "-c", "sleep infinity"]
+          # command: ["sh", "-c", "/scripts/backup.sh"]
+          volumeMounts:
+            - name: script-volume
+              mountPath: /scripts/backup.sh
+              subPath: backup.sh
+      restartPolicy: Always # TODO: change
+      volumes:
         - name: script-volume
-          mountPath: /scripts/backup.sh
-          subPath: backup.sh
-  restartPolicy: Never
-  volumes:
-    - name: script-volume
-      configMap:
-        name: {{ include "plngxbackup.fullname" . }}
-        items:
-          - key: backup.sh
-            path: backup.sh
-        defaultMode: 0777
+          configMap:
+            name: {{ include "plngxbackup.fullname" . }}
+            items:
+              - key: backup.sh
+                path: backup.sh
+            defaultMode: 0777
