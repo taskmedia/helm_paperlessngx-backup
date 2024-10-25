@@ -44,12 +44,24 @@ data:
       rm -rf /backup-plngx/${FILENAME_ZIP}
       exit 1
     fi
+    rm /backup-plngx/${FILENAME_ZIP}
+    FILENAME_ZIP="${FILENAME}.zip.gpg"
     {{- end }}
 
+    echo "upload file to FTP"
+    ncftpput \
+      -u "${FTP_USERNAME}" \
+      -p "${FTP_PASSWORD}" \
+      "${FTP_HOST}" \
+      "${FTP_PATH}" \
+      "/backup-plngx/${FILENAME_ZIP}"
+    if ! [ $? -eq 0  ]; then
+      echo "error on upload"
+      rm -rf ${FILENAME_ZIP}
+      exit 1
+    fi
 
-    # rm /backup-plngx/${FILENAME_ZIP}
-
-    # sleep infinity
+    rm /backup-plngx/${FILENAME_ZIP}
 
 {{- if .Values.encryption.enabled }}
   publickey.gpg: |

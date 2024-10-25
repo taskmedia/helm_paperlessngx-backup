@@ -8,3 +8,9 @@ encryption:
 
     abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZab
     -----END PGP PUBLIC KEY BLOCK-----
+
+ftp:
+  host: ""
+  user: ""
+  password: ""
+  path: "."
