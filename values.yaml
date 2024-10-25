@@ -1,3 +1,5 @@
+cron: "0 2 * * 0" # Runs every week (Sunday at 2 AM)
+
 paperless:
   podname: paperless-ngx-0
 
