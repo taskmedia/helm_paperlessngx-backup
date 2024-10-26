@@ -9,7 +9,7 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: 2
-      activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds }}
+      activeDeadlineSeconds: {{ .Values.timeout }}
       template:
         metadata:
           name: "{{ include "plngxbackup.fullname" . }}"

@@ -18,4 +18,4 @@ ftp:
   password: ""
   path: "."
 
-activeDeadlineSeconds: 60
+timeout: 60
