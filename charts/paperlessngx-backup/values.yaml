@@ -26,6 +26,11 @@ image:
   repository: ghcr.io/taskmedia/kubectl-gpg-ncftp
   tag: main
 
+# securitycontext for image
+securityContext:
+  runAsUser: 65534
+  runAsGroup: 65534
+
 # timeout for the job to complete backup
 timeout: 60
 
