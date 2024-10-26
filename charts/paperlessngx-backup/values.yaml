@@ -1,9 +1,11 @@
-# Runs every week (Sunday at 2 AM)
+# schedule to run backups (default: every week, sunday at 02:00)
 cron: "0 2 * * 0"
 
 paperless:
+  # pod name of the paperless-ngx to be backed up
   podname: paperless-ngx-0
 
+# encrypt your backup before sending to FTP with your public gpg key
 encryption:
   enabled: false
   publickey: |
@@ -12,12 +14,14 @@ encryption:
     abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZab
     -----END PGP PUBLIC KEY BLOCK-----
 
+# ftp configuration to upload backup to
 ftp:
   host: ""
   user: ""
   password: ""
   path: "."
 
+# timeout for the job to complete backup
 timeout: 60
 
 # Retain pods for 1 day after job completion
