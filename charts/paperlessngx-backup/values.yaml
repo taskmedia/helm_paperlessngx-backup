@@ -19,3 +19,6 @@ ftp:
   path: "."
 
 timeout: 60
+
+# Retain pods for 1 day after job completion
+ttlSecondsAfterFinished: 86400

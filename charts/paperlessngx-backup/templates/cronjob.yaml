@@ -10,6 +10,7 @@ spec:
     spec:
       backoffLimit: 2
       activeDeadlineSeconds: {{ .Values.timeout }}
+      ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished }}
       template:
         metadata:
           name: "{{ include "plngxbackup.fullname" . }}"
