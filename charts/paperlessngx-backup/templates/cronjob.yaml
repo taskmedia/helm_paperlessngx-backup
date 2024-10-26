@@ -23,9 +23,7 @@ spec:
           containers:
             - name: backup
               image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-              securityContext:
-                runAsUser: 65534
-                runAsGroup: 65534
+              securityContext: {{ .Values.securityContext | toYaml | nindent 16 }}
               command: ["sh", "-c", "/scripts/backup.sh"]
               env:
                 - name: FTP_HOST
