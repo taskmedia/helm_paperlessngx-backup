@@ -21,6 +21,11 @@ ftp:
   password: ""
   path: "."
 
+# image used for backup
+image:
+  repository: ghcr.io/taskmedia/kubectl-gpg-ncftp
+  tag: main
+
 # timeout for the job to complete backup
 timeout: 60
 

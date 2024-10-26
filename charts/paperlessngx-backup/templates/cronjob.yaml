@@ -22,7 +22,7 @@ spec:
           serviceAccountName: {{ include "plngxbackup.fullname" . }}
           containers:
             - name: backup
-              image: ghcr.io/taskmedia/kubectl-gpg-ncftp:main
+              image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
               securityContext:
                 runAsUser: 65534
                 runAsGroup: 65534
