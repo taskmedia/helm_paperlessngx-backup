@@ -32,7 +32,10 @@ spec:
                 - name: FTP_USERNAME
                   value: "{{ .Values.ftp.user }}"
                 - name: FTP_PASSWORD
-                  value: "{{ .Values.ftp.password }}"
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ include "plngxbackup.fullname" . }}
+                      key: ftp-password
                 - name: FTP_PATH
                   value: "{{ .Values.ftp.path }}"
               volumeMounts:
