@@ -56,7 +56,6 @@ data:
     ncftpput \
       -u "${FTP_USERNAME}" \
       -p "${FTP_PASSWORD}" \
-      -t ${{ .Values.timeout }} \
       "${FTP_HOST}" \
       "${FTP_PATH}" \
       "/backup-plngx/${FILENAME_ZIP}"
