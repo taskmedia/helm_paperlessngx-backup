@@ -33,8 +33,8 @@ spec:
                 - name: FTP_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: {{ include "plngxbackup.fullname" . }}
-                      key: ftp-password
+                      name: {{ default (include "plngxbackup.fullname" .) .Values.ftp.passwordExistingSecret.name }}
+                      key: {{ default "ftp-password" .Values.ftp.passwordExistingSecret.key }}
                 - name: FTP_PATH
                   value: "{{ .Values.ftp.path }}"
               volumeMounts:
