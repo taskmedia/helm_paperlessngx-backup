@@ -18,7 +18,12 @@ encryption:
 ftp:
   host: ""
   user: ""
+  # set password directly as value
   password: ""
+  # set password from existing secret
+  passwordExistingSecret:
+    name: ""
+    key: ""
   path: "."
 
 # image used for backup
