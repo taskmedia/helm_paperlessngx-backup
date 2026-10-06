@@ -1,5 +1,7 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/taskmedia)](https://artifacthub.io/packages/helm/taskmedia/paperlessngx-backup)
 
+> **⚠️ Moved:** This chart now lives in [taskmedia/helm](https://github.com/taskmedia/helm/tree/main/charts/paperlessngx-backup). This repository is kept for history only and no longer receives updates.
+
 # Helm chart: paperless-ngx backup
 
 Kubernetes [Helm](https://helm.sh) chart to create a cronjob to backup the paperless-ngx instance to a remote FTP server.
